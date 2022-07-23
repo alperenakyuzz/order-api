@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+  app:
+    container_name: laravel.app
+    build: docker/php
+    volumes:
+      - ./src:/var/www
+
+  nginx:
+    container_name: laravel.nginx
+    build: docker/nginx
+    volumes_from:
+      - app
+    ports:
+      - 8888:80
+
+  db:
+    container_name: laravel.mysql
+    image: mysql
+    volumes:
+      - ./docker/mysql/.db:/var/lib/mysql
+    env_file:
+      - ./docker/mysql/env
+    ports:
+        - 850:3306
+
+  phpmyadmin:
+    container_name: laravel.phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - 864:80
