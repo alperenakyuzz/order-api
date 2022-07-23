@@ -125,6 +125,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+	'reduce_product_stock' => env('REDUCE_PRODUCT_STOCK'),
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

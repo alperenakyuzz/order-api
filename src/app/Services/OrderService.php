@@ -44,6 +44,8 @@ class OrderService
 				'unit_price' => $product->price,
 				'total'      => $product->price * $item['quantity'],
 			];
+
+			$productService->reduceStock($product, $item['quantity']);
 		}
 
 		$order->items()

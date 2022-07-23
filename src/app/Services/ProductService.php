@@ -14,30 +14,15 @@ class ProductService
 		return Product::findOrFail($productId);
 	}
 
-	public function create(array $data): array
+	public function reduceStock(
+		Product $product, int $quantity
+	): void
 	{
-		$order = auth()->user()->orders()->create();
-		foreach ($data['items'] as $item) {
-			if(
-				!$this->getProductStock($item['product_id'])
-			) {
-				$order->delete();
-				throw ValidationException::withMessages([
-					'product_id.'.$item['product_id'] => ['The selected product is out of stock.'],
-				]);
-			}
+		if(config('app.reduce_product_stock')) {
+			$product->stock = $product->stock - $quantity;
+			$product->save();
+			$product->refresh();
 		}
-
-		$order->items()->create([
-
-		]);
-
-	}
-
-	private function getProductStock($productId): int
-	{
-		$product = Product::findOrFail($productId);
-		return $product->stock ?? 0;
 	}
 
 }
