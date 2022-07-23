@@ -34,7 +34,6 @@ curl --location --request POST 'http://localhost:8888/api/orders' \
 --header 'Authorization: Bearer 3|F2OUONma0JcHI23YZzOlbrKGWC5q920VMWT7l1cJ' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "customer_id": 1,
     "items": [
         {
             "product_id": 2,

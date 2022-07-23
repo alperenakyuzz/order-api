@@ -25,7 +25,6 @@ class OrderCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => 'required', 'integer',
 	        'items.*.product_id' => 'required|exists:products,id',
             'items.*' => ['required', function($attribute, $value, $fail) {
 	            if(Product::findOrFail($value['product_id'])->stock < $value['quantity'])
